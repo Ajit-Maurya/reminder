@@ -3,14 +3,13 @@ from django.utils import timezone
 from django.http import JsonResponse, HttpResponseBadRequest,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,logout,authenticate
-from django.views.decorators.csrf import csrf_exempt
 
 from .models import Reminder
 from  .forms import ReminderForm
 from .task import send_remainder_email
 # Create your views here.
 
-@csrf_exempt
+
 @login_required
 def create_reminder(request):
     if request.method == 'POST':
@@ -47,7 +46,6 @@ def create_reminder(request):
     return HttpResponseBadRequest("Invalid request")
 
 
-@csrf_exempt
 def user_login(request):
     '''used for login
         parameters:
@@ -72,7 +70,6 @@ def user_login(request):
     return JsonResponse({'error':'Invalid request method'}, status=400)
 
 
-@csrf_exempt
 @login_required    
 def user_logout(request):
     '''
